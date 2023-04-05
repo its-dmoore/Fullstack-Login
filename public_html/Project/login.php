@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../../partials/nav.php");
+require(__DIR__ . "/../../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
     <div>
@@ -10,9 +10,8 @@ require_once(__DIR__ . "/../../partials/nav.php");
         <label for="pw">Password</label>
         <input type="password" id="pw" name="password" required minlength="8" />
     </div>
-
     <input type="submit" value="Login" />
-</?form>
+</form>
 <script>
     function validate(form) {
         //TODO 1: implement JavaScript validation
@@ -22,34 +21,34 @@ require_once(__DIR__ . "/../../partials/nav.php");
     }
 </script>
 <?php
- //TODO 2: add PHP Code
- if(isset($_POST["email"]) && isset($_POST["password"])) {
-    $email = se($_POST, "email","", false);
+//TODO 2: add PHP Code
+if (isset($_POST["email"]) && isset($_POST["password"])) {
+    $email = se($_POST, "email", "", false);
     $password = se($_POST, "password", "", false);
-}
-//TODO 3
+
+    //TODO 3
     $hasError = false;
     if (empty($email)) {
-        echo "Email must be provided <br>";
+        echo "Email must not be empty";
         $hasError = true;
     }
     //sanitize
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $email = sanitize_email($email);
     //validate
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Please enter a valid email <br>";
+    if (!is_valid_email($email)) {
+        echo "Invalid email address";
         $hasError = true;
     }
     if (empty($password)) {
-        echo "Password must be provided <br>";
+        echo "password must not be empty";
         $hasError = true;
     }
     if (strlen($password) < 8) {
-        echo "Password must be at least 8 characters long <br>";
+        echo "Password too short";
         $hasError = true;
     }
     if (!$hasError) {
-        //echo "Welcome, $email";
+        //TODO 4
         $db = getDB();
         $stmt = $db->prepare("SELECT email, password from Users where email = :email");
         try {
@@ -60,9 +59,9 @@ require_once(__DIR__ . "/../../partials/nav.php");
                     $hash = $user["password"];
                     unset($user["password"]);
                     if (password_verify($password, $hash)) {
-                        echo "Welcome $email";
+                        echo "Weclome $email";
                         $_SESSION["user"] = $user;
-                        die(header("location: home.php"));
+                        die(header("Location: home.php"));
                     } else {
                         echo "Invalid password";
                     }
@@ -74,3 +73,5 @@ require_once(__DIR__ . "/../../partials/nav.php");
             echo "<pre>" . var_export($e, true) . "</pre>";
         }
     }
+}
+?>
