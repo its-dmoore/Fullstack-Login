@@ -117,7 +117,6 @@ $username = get_username();
         let con = form.confirmPassword.value;
         let isValid = true;
         //TODO add other client side validation....
-
         //example of using flash via javascript
         //find the flash container, create a new element, appendChild
         if (pw !== con) {
