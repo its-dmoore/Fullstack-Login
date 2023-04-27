@@ -2,14 +2,20 @@
 require(__DIR__ . "/../../partials/nav.php");
 ?>
 <form onsubmit="return validate(this)" method="POST">
-    <div>
-        <label for="email">Email/Username</label>
-        <input type="text" name="email" required />
-    </div>
-    <div>
-        <label for="pw">Password</label>
-        <input type="password" id="pw" name="password" required minlength="8" />
-    </div>
+<div class="container-fluid">
+    <h1>Login</h1>
+    <form onsubmit="return validate(this)" method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="email">Username/Email</label>
+            <input class="form-control" type="text" id="email" name="email" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="pw">Password</label>
+            <input class="form-control" type="password" id="pw" name="password" required minlength="8" />
+        </div>
+        <input type="submit" class="mt-3 btn btn-primary" value="Login" />
+    </form>
+</div>
     <input type="submit" value="Login" />
 </form>
 <script>
@@ -106,3 +112,41 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 ?>
 <?php
 require(__DIR__ . "/../../partials/flash.php");
+?>
+<?php
+// Establish database connection
+$dbhost = "your_db_host";
+$dbuser = "your_db_username";
+$dbpass = "your_db_password";
+$dbname = "your_db_name";
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+// Insert new account record with null account number
+$sql = "INSERT INTO Users (account_number, account_name, account_type, balance)
+        VALUES (NULL, 'John Doe', 'Checking', 0)";
+if (mysqli_query($conn, $sql)) {
+    // Get the last insert ID
+    $last_id = mysqli_insert_id($conn);
+
+    // Left pad the account ID to a fixed length of 6 digits
+    $account_number = str_pad($last_id, 6, '0', STR_PAD_LEFT);
+
+    // Update the account record with the new account number
+    $sql = "UPDATE Users SET account_number = $account_number WHERE account_id = $last_id";
+    if (mysqli_query($conn, $sql)) {
+        echo "New account created successfully!";
+    } else {
+        echo "Error updating account: " . mysqli_error($conn);
+    }
+} else {
+    echo "Error creating account: " . mysqli_error($conn);
+}
+
+// Close database connection
+mysqli_close($conn);
+?>
