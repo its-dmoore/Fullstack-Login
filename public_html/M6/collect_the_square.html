@@ -41,7 +41,7 @@ function isWithin(a, b, c) {
 }
 
 // Countdown timer (in seconds)
-var countdown = 30;
+var countdown = 60;
 // ID to track the setTimeout
 var id = null;
 
@@ -141,7 +141,7 @@ function moveTarget() {
     targetX = canvas.width - sideLength;
   }
 }
-
+// UCID: dtm36 Date: 5/2/23
 // Clear the canvas
 function erase() {
   context.fillStyle = '#FFFFFF';
@@ -189,6 +189,7 @@ function draw() {
       speed++;
       countdown++;
     }
+    // UCID: dtm36 Date: 5/2/23
   }
   // Draw the square
   context.fillStyle = '#FF0000';
@@ -212,9 +213,10 @@ function draw() {
 
 function resetGame() {
   var score = 0;
-  var countdown = 30;
+  var countdown = 60;
   location.reload();
 }
+
 // Start the game
 menu();
 canvas.focus();
