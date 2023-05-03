@@ -8,3 +8,4 @@ CREATE TABLE IF NOT EXISTS RM_Accounts(
     FOREIGN KEY (user_id) REFERENCES Users(id),
     check ((account != '000000000000'balance >= 0) AND LENGTH(account) = 12)
 )
+
