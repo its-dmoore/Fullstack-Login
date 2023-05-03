@@ -1,4 +1,14 @@
-// Collect The Square game
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Collect The Square game</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="400" tabindex="1"></canvas>
+    <button onclick="resetGame()" style="position: absolute; top: 25%; left: 15%; transform: translate(-25%, -15%);">Restart Game</button>
+    <script>
+    // Collect The Square game
 
 // Get a reference to the canvas DOM element
 var canvas = document.getElementById('canvas');
@@ -31,7 +41,7 @@ function isWithin(a, b, c) {
 }
 
 // Countdown timer (in seconds)
-var countdown = 10;
+var countdown = 30;
 // ID to track the setTimeout
 var id = null;
 
@@ -81,7 +91,7 @@ function menu() {
   context.font = '24px Arial';
   context.fillText('CLICK TO START', canvas.width / 2, canvas.height / 2);
   context.font = '18px Arial'
-  context.fillText('CONTROLS: ARROW KEYS', canvas.width / 2, (canvas.height / 5) * 3);
+  context.fillText('CONTROLS: ARROW KEYS', canvas.width / 2, (canvas.height / 4.25) * 3);
   // Start the game on a click
   canvas.addEventListener('click', startGame);
 }
@@ -111,7 +121,6 @@ function endGame(){
   context.textAlign = 'center';
   context.fillText('FINAL SCORE: ' + score, canvas.width / 2, canvas.height / 2);
   context.fillText('GAME OVER', canvas.width / 2 , canvas.height / 2.5);
-  context.fillText('CLICK TO PLAY AGAIN', canvas.width / 2 , canvas.height / 1.6);
 }
 
 // Move the target square to a random position
@@ -201,6 +210,14 @@ function draw() {
   }
 }
 
+function resetGame() {
+  var score = 0;
+  var countdown = 30;
+  location.reload();
+}
 // Start the game
 menu();
 canvas.focus();
+    </script>
+  </body>
+</html>
