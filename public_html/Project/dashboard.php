@@ -9,10 +9,9 @@
 		<ul>
 			<li><a href="create_account.php">Create Account</a></li>
 			<li><a href="my_accounts.php">My Accounts</a></li>
-			<li><a href="#">Deposit</a></li>
-			<li><a href="#">Withdraw</a></li>
-			<li><a href="#">Transfer</a></li>
-			<li><a href="#">Profile</a></li>
+			<li><a href="account_deposit.php">Deposit</a></li>
+			<li><a href="account_withdraw.php">Withdraw</a></li>
+			<li><a href="profile.php">Profile</a></li>
 		</ul>
 	</nav>
 </body>
