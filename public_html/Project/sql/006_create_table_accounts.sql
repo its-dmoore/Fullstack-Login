@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS RM_Accounts(
     id int AUTO_INCREMENT PRIMARY KEY,
-    account varchar(12) unique DEFAULT (LPAD(user_id, 12, "0")),
-    user_id int,
-    balance int DEFAULT 0,
+    account_number varchar(12) unique NOT NULL,
+    user_id INT NOT NULL,
+    balance DECIMAL(10, 2) DEFAULT 0.00,
+    account_type VARCHAR(255),
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id),
     check ((account != '000000000000'balance >= 0) AND LENGTH(account) = 12)
 )
-
