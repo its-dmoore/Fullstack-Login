@@ -135,3 +135,15 @@ $username = get_username();
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
+
+<?php
+// Connect to the database (replace dbname, username, and password with your own values)
+$db = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');
+
+// Retrieve the user's information from the Users table (replace username with the user's username)
+$stmt = $db->prepare('SELECT first_name, last_name FROM Users WHERE username = :username');
+$stmt->execute(array(':username' => $_GET['username']));
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Display the user's first and last name
+echo '<h1>' . $user['first_name'] . ' ' . $user['last_name'] . '</h1>';

@@ -94,3 +94,38 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["confirm
 <?php
 require(__DIR__ . "/../../partials/flash.php");
 ?>
+<form method="POST" action="register.php">
+  <label for="first_name">First Name:</label>
+  <input type="text" name="first_name" required>
+
+  <label for="last_name">Last Name:</label>
+  <input type="text" name="last_name" required>
+
+  <label for="email">Email:</label>
+  <input type="email" name="email" required>
+
+  <label for="password">Password:</label>
+  <input type="password" name="password" required>
+
+  <button type="submit">Register</button>
+</form>
+
+<?php
+// Connect to the database (replace dbname, username, and password with your own values)
+$db = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');
+
+// Retrieve the user's first and last name from the form submission
+$first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
+
+// Insert the user's information into the Users table
+$stmt = $db->prepare('INSERT INTO Users (first_name, last_name, email, password) VALUES (:first_name, :last_name, :email, :password)');
+$stmt->execute(array(
+  ':first_name' => $first_name,
+  ':last_name' => $last_name,
+  ':email' => $_POST['email'],
+  ':password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
+));
+
+// Redirect the user to their profile page (use their full name as the username)
+header('Location: /profile.php?username=' . urlencode($first_name . ' ' . $last_name));
