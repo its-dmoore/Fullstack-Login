@@ -135,7 +135,6 @@ $username = get_username();
 <?php
 require_once(__DIR__ . "/../../partials/flash.php");
 ?>
-
 <?php
 // Connect to the database (replace dbname, username, and password with your own values)
 $db = new PDO('mysql:host=localhost;dbname=mydatabase', 'username', 'password');
