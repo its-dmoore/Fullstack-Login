@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Redirect to account details page
         header("Location: account_details.php?account_id=$account_id");
+        echo "Withdrawl successful";
         exit();
     }
 }
