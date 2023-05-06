@@ -75,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
-
 <!-- HTML form -->
 <h1>Internal Transfer</h1>
 <form method="post">
